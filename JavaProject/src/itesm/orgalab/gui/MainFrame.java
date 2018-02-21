@@ -9,6 +9,7 @@ public class MainFrame extends JFrame {
 
     private JButton btn;
     private JTextArea textArea;
+    private final MenuBar menuBar;
 
     public MainFrame(){
         super("Text-Sensor Based Game");
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame {
 
         btn = new JButton("Holi");
         textArea  = new JTextArea();
+        menuBar=new MenuBar();
 
         btn.addActionListener(new ActionListener(){
             @Override
@@ -25,6 +27,8 @@ public class MainFrame extends JFrame {
             }
         });
 
+
+        add(menuBar, BorderLayout.NORTH);
         add(textArea, BorderLayout.CENTER);
         add(btn, BorderLayout.SOUTH);
 
