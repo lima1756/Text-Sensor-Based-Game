@@ -60,7 +60,7 @@ public class MenuBar extends JMenuBar{
             this.add(item);
     }
 
-    private static int saveJSON(String path, HashMap<Integer, Message> map){
+    private static int saveJSON(String path, HashMap<Long, Message> map){
         FileOutputStream fos;
         GsonBuilder gBuilder = new GsonBuilder();
         Gson gson = gBuilder.create();
@@ -79,8 +79,8 @@ public class MenuBar extends JMenuBar{
         return 1;
     }
 
-    private static HashMap<Integer, Message> loadJSON(String path){
-        HashMap<Integer, Message> map = new HashMap<>();
+    private static HashMap<Long, Message> loadJSON(String path){
+        HashMap<Long, Message> map = new HashMap<>();
         try {
             jsonToMessages(map, path);
         }
@@ -90,7 +90,7 @@ public class MenuBar extends JMenuBar{
         return map;
     }
 
-    private static void jsonToMessages(HashMap<Integer, Message> map, String path) throws IOException {
+    private static void jsonToMessages(HashMap<Long, Message> map, String path) throws IOException {
         JsonReader jsonReader = null;
         try {
             jsonReader = new JsonReader(new FileReader(path));
@@ -100,7 +100,7 @@ public class MenuBar extends JMenuBar{
         }
         jsonReader.beginObject();
         while(jsonReader.hasNext()){
-            int id = Integer.parseInt(jsonReader.nextName());
+            long id = Integer.parseInt(jsonReader.nextName());
             int[] rgb = null;
             ArrayList<Integer> nextMessages= new ArrayList<>();
             String text = null, title = null;
@@ -153,13 +153,13 @@ public class MenuBar extends JMenuBar{
             Message toSave = null;
             if(noRanges != -1)
             {
-                toSave = new RangeMessage(id, title, text, sensor, convertIntegers(nextMessages), noRanges, min, max);
+                toSave = new RangeMessage(title, text, sensor, convertIntegers(nextMessages), noRanges, min, max);
             }
             else if(rgb != null){
-                toSave = new RGBMessage(id, title, text, sensor, rgb);
+                toSave = new RGBMessage(title, text, sensor, rgb);
             }
             else{
-                toSave = new OptionMessage(id, title, text, sensor, convertIntegers(nextMessages));
+                toSave = new OptionMessage(title, text, sensor, convertIntegers(nextMessages));
             }
             map.put(id,toSave);
             jsonReader.endObject();

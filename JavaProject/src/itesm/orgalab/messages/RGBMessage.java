@@ -4,12 +4,12 @@ package itesm.orgalab.messages;
 public class RGBMessage extends Message {
     private int[] rgb;
 
-    public RGBMessage(int id, String title, String text, int sensor) {
-        super(id, title, text, sensor, new int[1]);
+    public RGBMessage(String title, String text, int sensor) {
+        super(title, text, sensor, new int[1]);
     }
 
-    public RGBMessage(int id, String title, String text, int sensor, int[] rgb) {
-        this(id, title, text, sensor);
+    public RGBMessage(String title, String text, int sensor, int[] rgb) {
+        this(title, text, sensor);
         this.rgb = rgb;
     }
 
