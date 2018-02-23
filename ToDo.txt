@@ -1,0 +1,3 @@
+- Solicitar puerto entre los 1000 disponibles :v
+- Hacer la GUI de creación de mensajes
+- Muchas cosas mas ;-;
