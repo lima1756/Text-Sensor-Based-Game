@@ -11,18 +11,18 @@ import java.util.HashMap;
 
 public class Main {
 
-    public static HashMap<Integer, Message> map;
+    public static HashMap<Long, Message> map;
 
     public static void main(String[] args){
         Main.map = new HashMap<>();
 
 
 
-        OptionMessage om = new OptionMessage(0,"Test0","Hellooooo", Message.NONE);
+        OptionMessage om = new OptionMessage("Test0","Hellooooo", Message.NONE);
         map.put(om.getId(),om);
         om.saveMessage(map);
         int[] color= {100,100,100};
-        Message rgb = new RGBMessage(1,"Test1","Hellooooo", Message.RGB, color);
+        Message rgb = new RGBMessage("Test1","Hellooooo", Message.RGB, color);
         map.put(rgb.getId(),rgb);
         rgb.saveMessage(map);
 
@@ -35,6 +35,5 @@ public class Main {
 //        }
 
     }
-
 
 }

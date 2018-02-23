@@ -6,20 +6,20 @@ public class RangeMessage extends Message {
                 min,
                 max;
 
-    public RangeMessage(int id, String title, String text, int sensor, int[] nextMessages){
-        super(id, title, text, sensor, nextMessages);
+    public RangeMessage(String title, String text, int sensor, int[] nextMessages){
+        super(title, text, sensor, nextMessages);
     }
 
-    public RangeMessage(int id, String title, String text, int sensor) {
-        this(id, title, text, sensor, new int[1], 1, 0, 30);
+    public RangeMessage(String title, String text, int sensor) {
+        this(title, text, sensor, new int[1], 1, 0, 30);
     }
 
-    public RangeMessage(int id, String title, String text, int sensor, int noRanges, int min, int max){
-        this(id, title, text, sensor, new int[noRanges], noRanges, min, max);
+    public RangeMessage(String title, String text, int sensor, int noRanges, int min, int max){
+        this(title, text, sensor, new int[noRanges], noRanges, min, max);
     }
 
-    public RangeMessage(int id, String title, String text, int sensor, int[] nextMessages, int noRanges, int min, int max){
-        this(id, title, text, sensor, nextMessages);
+    public RangeMessage(String title, String text, int sensor, int[] nextMessages, int noRanges, int min, int max){
+        this(title, text, sensor, nextMessages);
         this.noRanges = noRanges;
         this.min = min;
         this.max = max;
