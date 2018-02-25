@@ -18,13 +18,13 @@ public class Main {
 
 
 
-        OptionMessage om = new OptionMessage("Test0","Hellooooo", Message.NONE);
-        map.put(om.getId(),om);
+        OptionMessage om = new OptionMessage("Test0","Hellooooo0", Message.RANGE);
         om.saveMessage(map);
         int[] color= {100,100,100};
-        Message rgb = new RGBMessage("Test1","Hellooooo", Message.RGB, color);
-        map.put(rgb.getId(),rgb);
+        Message rgb = new RGBMessage("Test1","Hellooooo1", Message.RGB, color);
         rgb.saveMessage(map);
+        Message asdf = new OptionMessage("Test2","Hellooooo2", Message.NONE, color);
+        asdf.saveMessage(map);
 
         new MainFrame();
 //

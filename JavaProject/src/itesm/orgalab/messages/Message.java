@@ -24,6 +24,8 @@ public abstract class Message {
                             SOUND = 6,
                             RGB = 7,
                             NONE = 0;
+    public final static String[] SENSORS = {"BTN2", "BTN16", "SWITCH", "LIGHT", "RANGE", "SOUND", "RGB", "NONE"};
+
     private static Arduino arduino;
     public static int COUNTER = 0;
     /**
