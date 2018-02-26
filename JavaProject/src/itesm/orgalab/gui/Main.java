@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import itesm.orgalab.messages.*;
+import org.w3c.dom.ranges.Range;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,12 +19,12 @@ public class Main {
 
 
 
-        OptionMessage om = new OptionMessage("Test0","Hellooooo0", Message.RANGE);
+        RangeMessage om = new RangeMessage("Test0","Hellooooo0", Message.RANGE, 1,1,2);
         om.saveMessage(map);
         int[] color= {100,100,100};
         Message rgb = new RGBMessage("Test1","Hellooooo1", Message.RGB, color);
         rgb.saveMessage(map);
-        Message asdf = new OptionMessage("Test2","Hellooooo2", Message.NONE, color);
+        Message asdf = new OptionMessage("Test2","Hellooooo2", Message.BTN2, color);
         asdf.saveMessage(map);
 
         new MainFrame();
