@@ -1,3 +1,4 @@
 x (Class ArduinoGraphicalConnect se encarga de analizar los puertos)- Solicitar puerto entre los 1000 disponibles :v
+- RGB y Display en Arduino esclavo.
 - Hacer la GUI de creación de mensajes
 - Muchas cosas mas ;-;
