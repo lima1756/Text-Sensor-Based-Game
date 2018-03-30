@@ -13,6 +13,10 @@ public class RGBMessage extends Message {
         this.rgb = rgb;
     }
 
+    public RGBMessage(){
+        this("New RGB message", "", Message.RGB, new int[]{0,0,0});
+    }
+
     @Override
     public int nextMessage(double answer) {
         return 0;

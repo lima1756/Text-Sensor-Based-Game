@@ -10,6 +10,10 @@ public class OptionMessage extends Message {
         this(title,text,sensor, new int[1]);
     }
 
+    public OptionMessage(){
+        this("New Option Message", "", Message.BTN2, new int[] {1,1});
+    }
+
     @Override
     public int nextMessage(double answer) {
         return getNextMessages()[(int)answer];

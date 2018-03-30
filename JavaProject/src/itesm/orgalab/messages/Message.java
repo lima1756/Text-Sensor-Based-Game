@@ -12,7 +12,7 @@ public abstract class Message {
      *
      */
     private int sensor;
-    private long id;
+    private int id;
     private String text,
                    title;
     private int[] nextMessages;
@@ -24,7 +24,7 @@ public abstract class Message {
                             SOUND = 6,
                             RGB = 7,
                             NONE = 0;
-    public final static String[] SENSORS = {"BTN2", "BTN16", "SWITCH", "LIGHT", "RANGE", "SOUND", "RGB"};
+
 
     private static Arduino arduino;
     public static int COUNTER = 0;
@@ -46,7 +46,7 @@ public abstract class Message {
         this.nextMessages = nextMessages;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -104,7 +104,7 @@ public abstract class Message {
 
     public abstract int nextMessage(double answer);
 
-    public void saveMessage(HashMap<Long, Message> map){
+    public void saveMessage(HashMap<Integer, Message> map){
         map.put(this.id, this);
     }
 }

@@ -5,7 +5,10 @@ public class RangeMessage extends Message {
     private int noRanges,
                 min,
                 max;
-
+    public RangeMessage()
+    {
+        this("New Range Message", "", Message.RANGE, new int[] {1}, 1, 0, 30);
+    }
     public RangeMessage(String title, String text, int sensor, int[] nextMessages){
         super(title, text, sensor, nextMessages);
     }
