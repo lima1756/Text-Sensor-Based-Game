@@ -37,5 +37,26 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/RXTX/RXTXcomm.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/lib/RXTX" />
+        </NATIVE>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jssc-2.8.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -31,14 +31,14 @@ public class ArduinoGraphicalConnect {
 
         btnOn.addActionListener(new ActionListener(){
             @Override public void actionPerformed(ActionEvent e) {
-                arduino.serialWrite('1');
+                //arduino.serialWrite('1');
 
             }
         });
 
         btnOff.addActionListener(new ActionListener(){
             @Override public void actionPerformed(ActionEvent e) {
-                arduino.serialWrite('0');
+                //arduino.serialWrite('0');
             }
         });
 
@@ -73,23 +73,22 @@ public class ArduinoGraphicalConnect {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(connectButton.getText().equals("Connect")){
-                    arduino = new Arduino(portList.getSelectedItem().toString(),9600);
-                    if(arduino.openConnection()){
-                        connectButton.setText("Disconnect");
+                    //arduino = new Arduino(portList.getSelectedItem().toString(),9600);
+/*                        connectButton.setText("Disconnect");
                         portList.setEnabled(false);
                         btnOn.setEnabled(true);
                         btnOff.setEnabled(true);
                         btnRefresh.setEnabled(false);
                         frame.pack();
-                    }
+                    }*/
                 }
                 else {
-                    arduino.closeConnection();
+                    /*arduino.closeConnection();
                     connectButton.setText("Connect");;
                     portList.setEnabled(true);
                     btnOn.setEnabled(false);
                     btnRefresh.setEnabled(true);
-                    btnOff.setEnabled(false);
+                    btnOff.setEnabled(false);*/
                 }
             }
 

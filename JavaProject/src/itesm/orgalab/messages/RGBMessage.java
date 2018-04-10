@@ -22,10 +22,6 @@ public class RGBMessage extends Message {
         return 0;
     }
 
-    @Override
-    public void sendMessage(){
-        // Sends the color rgb to the arduino
-    }
 
     public void setColor(int red, int green, int blue){
         this.rgb[0] = red;

@@ -1,6 +1,7 @@
 package itesm.orgalab.messages;
 
 import arduino.Arduino;
+import itesm.orgalab.gui.Main;
 
 import java.util.HashMap;
 
@@ -26,7 +27,6 @@ public abstract class Message {
                             NONE = 0;
 
 
-    private static Arduino arduino;
     public static int COUNTER = 0;
     /**
      * @param title
@@ -90,17 +90,6 @@ public abstract class Message {
         return this.id + " - " + this.title;
     }
 
-    public void sendMessage(){
-        double answer;
-        arduino.openConnection();
-        arduino.serialWrite(Integer.toString(Integer.toString(this.sensor).charAt(0)));
-        answer = Double.parseDouble(arduino.serialRead());
-        arduino.closeConnection();
-        int nextId = this.nextMessage(answer);
-        // ------------- IMPORTANT --------------------
-        // Read the JSON Files in search of the object with the corresponding ID
-        // Create the new object and execute what is needed of it
-    }
 
     public abstract int nextMessage(double answer);
 
