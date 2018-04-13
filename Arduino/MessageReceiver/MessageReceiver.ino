@@ -1,25 +1,38 @@
 String input;
+const int button1 = 7;
+const int button2 = 8;
 void setup() {
   Serial.begin(9600);
   pinMode(23, OUTPUT);
   pinMode(25, OUTPUT);
   pinMode(27, OUTPUT);
+  pinMode(button1, INPUT);
+  pinMode(button2, INPUT);
   digitalWrite(23, LOW);
   digitalWrite(25, LOW);
   digitalWrite(27, LOW);
-  input = "";
+  input = "1";
   Serial.println("\"");
 }
 
 void loop() {
   delay(20);
   while (Serial.available()) {
-     input = input + char(Serial.read());   
+     input = input + char(Serial.read());
      delay(1);
+     Serial.println("Delay");
   }
   if(input=="1"){
-      //returnSensor("BTN2");
-      Serial.println("1");
+      boolean waitTilButton = true;
+      while (waitTilButton) {
+        if (digitalRead(button1) == HIGH) {
+          Serial.println("Button 1 was pressed");
+          waitTilButton = false;
+        } else if (digitalRead(button2) == HIGH) {
+          Serial.println("Button 2 was pressed");
+          waitTilButton = false;
+        }
+      }
   }
   else if(input=="2"){
       //returnSensor("BTN16");
@@ -47,7 +60,7 @@ void loop() {
   else if(input=="0"){
       Serial.println("\\");
   }
-  input = "";
+  // input = "";
 }
 
 void returnSensor(String sensor){
