@@ -7,16 +7,36 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.2" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jssc-2.8.0.jar!/" />
         </CLASSES>
         <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/commons-io-2.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/gson-2.8.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/lib/gson-2.8.2-javadoc.jar!/" />
+        </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/gson-2.8.2-sources.jar!/" />
         </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/RXTX/RXTXcomm.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
@@ -31,31 +51,12 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-io-2.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/RXTX/RXTXcomm.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <NATIVE>
-          <root url="file://$MODULE_DIR$/lib/RXTX" />
-        </NATIVE>
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jssc-2.8.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
   </component>

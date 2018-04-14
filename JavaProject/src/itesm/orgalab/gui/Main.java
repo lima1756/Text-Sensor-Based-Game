@@ -23,7 +23,7 @@ public class Main {
 
 
         int[] color = {100, 100, 100};
-        Message rgb = new RGBMessage("Test1", "Hellooooo1", Message.RGB, color);
+        Message rgb = new RGBMessage("Test1", "Hellooooo1", Message.RGB, color, new int[] {1});
         rgb.saveMessage(map);
 
         RangeMessage om = new RangeMessage("Test0", "Hellooooo0", Message.RANGE, 3, 1, 3);

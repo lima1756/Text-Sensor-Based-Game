@@ -1,5 +1,9 @@
 package itesm.orgalab.messages;
 
+import itesm.orgalab.connection.SerialPortCom;
+import jssc.SerialPort;
+import jssc.SerialPortException;
+
 public class OptionMessage extends Message {
 
     public OptionMessage(String title, String text, int sensor, int[] nextMessages){
@@ -18,4 +22,5 @@ public class OptionMessage extends Message {
     public int nextMessage(double answer) {
         return getNextMessages()[(int)answer];
     }
+
 }

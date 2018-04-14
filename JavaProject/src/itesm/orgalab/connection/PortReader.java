@@ -8,55 +8,38 @@ import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
 public class PortReader implements SerialPortEventListener {
-    private SerialPort serialPort;
+    public static SerialPort serialPort;
     private Integer nextId;
     private Message actualMessage;
+    private String input, sensor;
 
     public PortReader(SerialPort serialPort) {
-        this.serialPort = serialPort;
+        PortReader.serialPort = serialPort;
         this.nextId = 1;
-    }
-    public synchronized void serialEvent(SerialPortEvent event) {
-//        try {
-//            System.out.print(serialPort.readString());
-//        } catch (SerialPortException e) {
-//            e.printStackTrace();
-//        }
-        String sensor = null;
+        sensor = null;
         if(nextId!=null) {
             actualMessage = Main.map.get(nextId);
             sensor = Integer.toString(actualMessage.getSensor());
         }
-        if (event.isRXCHAR()) {
+    }
 
+    public synchronized void serialEvent(SerialPortEvent event) {
+        if (event.isRXCHAR()) {
             try {
                 Thread.sleep(1000);
                 String input = serialPort.readString();
                 if(input!= null)
                     System.out.print(input);
-                if (!input.contains("\"") && !input.contains("\\")) {
-                    //System.out.print(input);
-                }
-                if(input.contains("\n") && !input.contains("\"") && !input.contains("\\")) {
-                    if (nextId == 2)
-                        nextId = 3;
-                    else if (nextId == 3)
-                        nextId = null;
-                    else
-                        nextId = 2;
-                    if(nextId!=null) {
-                        actualMessage = Main.map.get(nextId);
-                        sensor = Integer.toString(actualMessage.getSensor());
-                    }
-                    else
-                        sensor = "0";
-                }
-                if(!input.contains("\\"))
-                {
-                    serialPort.writeString(sensor);
+                if(input.contains("\n\r")) {
+                    String[] vars = this.input.split("\n\r");
+                    String value = vars[0];
+                    this.input = vars[1];
+                    this.nextId = actualMessage.nextMessage(Double.parseDouble(value));
+                    actualMessage = Main.map.get(this.nextId);
+                    actualMessage.run();
                 }
             }catch (NullPointerException e){
-
+                e.printStackTrace();
             }
             catch (Exception e) {
                 e.printStackTrace();

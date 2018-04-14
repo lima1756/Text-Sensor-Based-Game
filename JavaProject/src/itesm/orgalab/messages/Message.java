@@ -1,7 +1,11 @@
 package itesm.orgalab.messages;
 
 import arduino.Arduino;
+import itesm.orgalab.connection.PortReader;
+import itesm.orgalab.connection.SerialPortCom;
 import itesm.orgalab.gui.Main;
+import jssc.SerialPort;
+import jssc.SerialPortException;
 
 import java.util.HashMap;
 
@@ -76,7 +80,7 @@ public abstract class Message {
         this.title = title;
     }
 
-    public int getSensor()
+    public Integer getSensor()
     {
         return this.sensor;
     }
@@ -92,6 +96,18 @@ public abstract class Message {
 
 
     public abstract int nextMessage(double answer);
+
+    public void run(){
+        try {
+            PortReader.serialPort.writeString(this.getText());
+            Thread.sleep(1000);
+            PortReader.serialPort.writeString(this.getSensor().toString());
+        } catch (SerialPortException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void saveMessage(HashMap<Integer, Message> map){
         map.put(this.id, this);

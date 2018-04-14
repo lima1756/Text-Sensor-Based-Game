@@ -8,18 +8,19 @@ public class RGBMessage extends Message {
         super(title, text, sensor, new int[1]);
     }
 
-    public RGBMessage(String title, String text, int sensor, int[] rgb) {
+    public RGBMessage(String title, String text, int sensor, int[] rgb, int[] nextMessages) {
         this(title, text, sensor);
         this.rgb = rgb;
+        this.setNextMessages(nextMessages);
     }
 
     public RGBMessage(){
-        this("New RGB message", "", Message.RGB, new int[]{0,0,0});
+        this("New RGB message", "", Message.RGB, new int[]{0,0,0}, new int[] {1});
     }
 
     @Override
     public int nextMessage(double answer) {
-        return 0;
+        return this.getNextMessages()[0];
     }
 
 

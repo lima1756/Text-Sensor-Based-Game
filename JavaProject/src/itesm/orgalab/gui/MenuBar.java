@@ -30,17 +30,18 @@ public class MenuBar extends JMenuBar implements ActionListener{
         FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("json files (*.json)", "json");
         fileChooser.addChoosableFileFilter(jsonFilter);
 
-        fileItems = new JMenuItem[3];
+        fileItems = new JMenuItem[4];
         fileItems[0] = new JMenuItem("New Game");
         fileItems[1] = new JMenuItem("Save Game");
         fileItems[2] = new JMenuItem("Load Game");
+        fileItems[3] = new JMenuItem("Play Game");
 
         messageItems = new JMenuItem[3];
         messageItems[0] = new JMenuItem("New Range Message");
         messageItems[1] = new JMenuItem("New Option Message");
         messageItems[2] = new JMenuItem("New RGB Message");
 
-        barItems = new JMenu[3];
+        barItems = new JMenu[2];
         barItems[0] = new JMenu("File");
         for(JMenuItem item:fileItems) {
             item.addActionListener(this);
@@ -53,13 +54,12 @@ public class MenuBar extends JMenuBar implements ActionListener{
             barItems[1].add(item);
         }
 
-        barItems[2] = new JMenu("Play game");
-
         //fileChooser = new JFileChooser();
         for(JMenu item: barItems)
             this.add(item);
 
         this.comboBoxUpdate = comboBoxUpdate;
+        this.panelDisableable = panelDisableable;
     }
 
     private static int saveJSON(String path, HashMap<Integer, Message> map){
@@ -158,7 +158,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
                 toSave = new RangeMessage(title, text, sensor, convertIntegers(nextMessages), noRanges, min, max);
             }
             else if(rgb != null){
-                toSave = new RGBMessage(title, text, sensor, rgb);
+                toSave = new RGBMessage(title, text, sensor, rgb, convertIntegers(nextMessages));
             }
             else{
                 toSave = new OptionMessage(title, text, sensor, convertIntegers(nextMessages));
@@ -234,6 +234,10 @@ public class MenuBar extends JMenuBar implements ActionListener{
             RGBMessage newMessage = new RGBMessage();
             Main.map.put(newMessage.getId(), newMessage);
             comboBoxUpdate.updateComboBox();
+        }
+        else if(source == fileItems[3]){
+            Message msg = Main.map.get(1);
+            msg.run();
         }
     }
 }
