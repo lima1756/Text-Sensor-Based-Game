@@ -1,6 +1,9 @@
+#include <Key.h>
 #include <Keypad.h>
 
+
 String input;
+String rgb[3];
 const int BLEFT = 2;
 const int BRIGHT = 3;
 
@@ -23,16 +26,11 @@ Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 void setup() {
   Serial.begin(9600);
-  pinMode(23, OUTPUT);
-  pinMode(25, OUTPUT);
-  pinMode(27, OUTPUT);
   pinMode(BLEFT, INPUT);
   pinMode(BRIGHT, INPUT);
-  digitalWrite(23, LOW);
-  digitalWrite(25, LOW);
-  digitalWrite(27, LOW);
-  input = "1";
-  Serial.println("\"");
+  rgb[0]="";
+  rgb[1]="";
+  rgb[2]="";
 }
 
 void loop() {
@@ -40,71 +38,73 @@ void loop() {
   while (Serial.available()) {
      input = input + char(Serial.read());
      delay(1);
-     Serial.println("Delay");
   }
+  
   if(input=="1"){
-      boolean waitTilButton = true;
-      while (waitTilButton) {
+//    returnSensor("btn2");
+      while (true) {
         if (digitalRead(BLEFT) == HIGH) {
-          Serial.println("Button left was pressed");
-          waitTilButton = false;
+          Serial.println("0");
+          break;
         } else if (digitalRead(BRIGHT) == HIGH) {
-          Serial.println("Button right was pressed");
-          waitTilButton = false;
+          Serial.println("1");
+          break;
         }
+        delay(1);
       }
   }
   else if(input=="2") {
+//    returnSensor("keypad");
       char key = kpd.getKey();
         if(key) {  // Check for a valid key.
           switch (key) {
             case 'a':
-              Serial.println("1 was pressed");
+              Serial.println("0");
               break;
             case 'b':
-              Serial.println("2 was pressed");
+              Serial.println("1");
               break;
             case 'c':
-              Serial.println("3 was pressed");
+              Serial.println("2");
               break;
             case 'd':
-              Serial.println("4 was pressed");
+              Serial.println("3");
               break;
             case 'e':
-              Serial.println("5 was pressed");
+              Serial.println("4");
               break;
             case 'f':
-              Serial.println("6 was pressed");
+              Serial.println("5");
               break;
             case 'g':
-              Serial.println("7 was pressed");
+              Serial.println("6");
               break;
             case 'h':
-              Serial.println("8 was pressed");
+              Serial.println("7");
               break;
             case 'i':
-              Serial.println("9 was pressed");
+              Serial.println("8");
               break;
             case 'j':
-              Serial.println("10 was pressed");
+              Serial.println("9");
               break;
             case 'k':
-              Serial.println("11 was pressed");
+              Serial.println("10");
               break;
             case 'l':
-              Serial.println("12 was pressed");
+              Serial.println("11");
               break;
             case 'm':
-              Serial.println("13 was pressed");
+              Serial.println("12");
               break;
             case 'n':
-              Serial.println("14 was pressed");
+              Serial.println("13");
               break;
             case 'o':
-              Serial.println("15 was pressed");
+              Serial.println("14");
               break;
             case 'p':
-              Serial.println("16 was pressed");
+              Serial.println("15");
               break;
              default:
               Serial.println(key);
@@ -112,35 +112,54 @@ void loop() {
         }
   }
   else if(input=="3"){
-      //returnSensor("SWITCH");
+    Serial.println(input);
+//      returnSensor("SWITCH");
       Serial.println("0");
   }
   else if(input=="4"){
-      //returnSensor("LIGHT");
+//      returnSensor("LIGHT");
       Serial.println("0");
   }
   else if(input=="5"){
-      //returnSensor("RANGE");
-      Serial.println("16.5");
+//    returnSensor("RANGE");
+      Serial.println("25");
   }
   else if(input=="6"){
-      //returnSensor("SOUND");
+//      returnSensor("SOUND");
       Serial.println("1");
   }
   else if(input=="7"){
-      returnSensor("RGB");
+//      returnSensor("RGB");
+    delay(1000);
+    String rgbString = "";
+    while (Serial.available() || rgbString=="") {
+        rgbString = rgbString + char(Serial.read()); 
+        delay(1);
+      }
+      for(int i = 0, color = 0; i< rgbString.length(); i++){
+        if(rgbString[i]==','){
+          color++;
+          continue;
+        }
+        rgb[color]=rgb[color]+rgbString[i];
+      }
+      int red = rgb[0].toInt();
+      int green = rgb[1].toInt();
+      int blue = rgb[2].toInt();
+      // TODO setear los valores analogicos para el led rgb
+      Serial.println("0");
+      rgbString=="";
+      rgb[0] = "";
+      rgb[1] = "";
+      rgb[2] = "";
   }
-  else if(input=="0"){
-      Serial.println("\\");
+  else if(input!="") {
+//    Serial.println(input);
   }
-  else {
-    // Imprimir al LCD
-  }
-  // input = "";
+  input = "";
 }
 
-void returnSensor(String sensor){
-  Serial.println("The_received_sensor_was:_" + sensor);
-  delay(5000);
-}
-
+//void returnSensor(String sensor){
+//  Serial.println("The_received_sensor_was:_" + sensor);
+//  delay(5000);
+//}

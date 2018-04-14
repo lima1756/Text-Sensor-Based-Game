@@ -27,16 +27,20 @@ public class PortReader implements SerialPortEventListener {
         if (event.isRXCHAR()) {
             try {
                 Thread.sleep(1000);
-                String input = serialPort.readString();
-                if(input!= null)
+                this.input = serialPort.readString();
+                if (input != null){
                     System.out.print(input);
-                if(input.contains("\n\r")) {
-                    String[] vars = this.input.split("\n\r");
-                    String value = vars[0];
-                    this.input = vars[1];
-                    this.nextId = actualMessage.nextMessage(Double.parseDouble(value));
-                    actualMessage = Main.map.get(this.nextId);
-                    actualMessage.run();
+                    if (input.contains("\r\n")) {
+                        String[] vars = this.input.split("\r\n");
+                        String value = vars[0];
+                        if (vars.length > 1)
+                            this.input = vars[1];
+                        else
+                            this.input = "";
+                        this.nextId = actualMessage.nextMessage(Double.parseDouble(value));
+                        actualMessage = Main.map.get(this.nextId);
+                        actualMessage.run();
+                    }
                 }
             }catch (NullPointerException e){
                 e.printStackTrace();

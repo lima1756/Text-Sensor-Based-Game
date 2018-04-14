@@ -103,7 +103,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
         jsonReader.beginObject();
         while(jsonReader.hasNext()){
             int id = Integer.parseInt(jsonReader.nextName());
-            int[] rgb = null;
+            Integer[] rgb = null;
             ArrayList<Integer> nextMessages= new ArrayList<>();
             String text = null, title = null;
             int noRanges = -1, sensor = -1, min = -1, max = -1;
@@ -113,7 +113,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
                 switch(name){
                     case "rgb":
                         jsonReader.beginArray();
-                        rgb = new int[3];
+                        rgb = new Integer[3];
                         for(int i = 0; jsonReader.hasNext(); i++){
                             rgb[i] = jsonReader.nextInt();
                         }

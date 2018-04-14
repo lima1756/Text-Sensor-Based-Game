@@ -57,7 +57,7 @@ public class ContentPanel extends JPanel implements ActionListener{
         this.selectedMessage = message;
         setMessageFields(this.selectedMessage.getTitle(), this.selectedMessage.getText(), this.selectedMessage.getSensor());
         this.setRangeFields(0,0,0);
-        int rgb[] = {0,0,0};
+        Integer rgb[] = {0,0,0};
         this.setColorFields(rgb);
         switch(this.selectedMessage.getSensor()){
             case Message.RANGE:
@@ -242,7 +242,7 @@ public class ContentPanel extends JPanel implements ActionListener{
         maxRangeField.setText(max.toString());
     }
 
-    private void setColorFields(int[] rgb){
+    private void setColorFields(Integer[] rgb){
         redField.setText(Integer.toString(rgb[0]));
         greenField.setText(Integer.toString(rgb[1]));
         blueField.setText(Integer.toString(rgb[2]));

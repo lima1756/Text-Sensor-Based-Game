@@ -1,21 +1,24 @@
 package itesm.orgalab.messages;
 
 
+import itesm.orgalab.connection.PortReader;
+import jssc.SerialPortException;
+
 public class RGBMessage extends Message {
-    private int[] rgb;
+    private Integer[] rgb;
 
     public RGBMessage(String title, String text, int sensor) {
         super(title, text, sensor, new int[1]);
     }
 
-    public RGBMessage(String title, String text, int sensor, int[] rgb, int[] nextMessages) {
+    public RGBMessage(String title, String text, int sensor, Integer[] rgb, int[] nextMessages) {
         this(title, text, sensor);
         this.rgb = rgb;
         this.setNextMessages(nextMessages);
     }
 
     public RGBMessage(){
-        this("New RGB message", "", Message.RGB, new int[]{0,0,0}, new int[] {1});
+        this("New RGB message", "", Message.RGB, new Integer[]{0,0,0}, new int[] {1});
     }
 
     @Override
@@ -30,11 +33,24 @@ public class RGBMessage extends Message {
         this.rgb[2] = blue;
     }
 
-    public void setColor(int[] rgb){
+    public void setColor(Integer[] rgb){
         this.rgb = rgb;
     }
 
-    public int[] getColor(){
+    public Integer[] getColor(){
         return rgb;
+    }
+
+    @Override
+    public void run(){
+        super.run();
+        try {
+            Thread.sleep(1000);
+            PortReader.serialPort.writeString(this.rgb[0]+","+this.rgb[1]+","+this.rgb[2]);
+        } catch (SerialPortException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

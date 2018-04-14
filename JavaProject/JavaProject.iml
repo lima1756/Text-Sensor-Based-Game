@@ -10,51 +10,18 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jssc-2.8.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/commons-io-2.6.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/gson-2.8.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jssc-2.8.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/RXTX/RXTXcomm.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/JACL/jSerialComm-1.3.11.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
         </CLASSES>
         <JAVADOC>
           <root url="jar://$MODULE_DIR$/lib/gson-2.8.2-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
           <root url="jar://$MODULE_DIR$/lib/gson-2.8.2-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/RXTX/RXTXcomm.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/JACL/jSerialComm-1.3.11.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
           <root url="jar://$MODULE_DIR$/lib/JACL/arduino.jar!/" />
         </SOURCES>
       </library>
