@@ -1,6 +1,11 @@
-#include <Key.h>
 #include <Keypad.h>
+#include <NewPing.h>
 
+// Ultrasonido
+#define TRIGGER_PIN 9
+#define ECHO_PIN 8
+#define MAX_DISTANCE 400
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
 String input;
 String rgb[3];
@@ -114,17 +119,25 @@ void loop() {
   else if(input=="3"){
     Serial.println(input);
 //      returnSensor("SWITCH");
+//      Si la entrada esta en alto return 1 sino pos nmo no
       Serial.println("0");
   }
   else if(input=="4"){
+        // Fotoresistencia return in a certain range
 //      returnSensor("LIGHT");
       Serial.println("0");
   }
   else if(input=="5"){
+      // Retornar el valor tal cual
 //    returnSensor("RANGE");
-      Serial.println("25");
+      int uS = 0;
+      while(uS==0)
+        uS = sonar.ping_cm();
+      //Serial.println(uS);
+      Serial.println(uS);
   }
   else if(input=="6"){
+        // Returns one or 0
 //      returnSensor("SOUND");
       Serial.println("1");
   }
