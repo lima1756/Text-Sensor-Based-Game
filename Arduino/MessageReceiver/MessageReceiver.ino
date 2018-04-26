@@ -67,9 +67,11 @@ void loop() {
       while (true) {
         if (digitalRead(BLEFT) == HIGH) {
           Serial.println("0");
+          updateLCD("Haz pulsado el", "boton izquierdo");
           break;
         } else if (digitalRead(BRIGHT) == HIGH) {
           Serial.println("1");
+          updateLCD("Haz pulsado el", "boton derecho");
           break;
         }
         delay(1);
@@ -86,66 +88,82 @@ void loop() {
           switch (key) {
             case 'a':
               Serial.println("0");
+              updateLCD("Haz pulsado el", "boton 0");
               isKey = false;
               break;
             case 'b':
               Serial.println("1");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 1");
               break;
             case 'c':
               Serial.println("2");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 2");
               break;
             case 'd':
               Serial.println("3");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 3");
               break;
             case 'e':
               Serial.println("4");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 4");
               break;
             case 'f':
               Serial.println("5");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 5");
               break;
             case 'g':
               Serial.println("6");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 6");
               break;
             case 'h':
               Serial.println("7");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 7");
               break;
             case 'i':
               Serial.println("8");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 8");
               break;
             case 'j':
               Serial.println("9");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 9");
               break;
             case 'k':
               Serial.println("10");
               isKey = false;
+              updateLCD("Haz pulsado el", "boton 10");
               break;
             case 'l':
               Serial.println("11");
+              updateLCD("Haz pulsado el", "boton 11");
               isKey = false;
               break;
             case 'm':
               Serial.println("12");
+              updateLCD("Haz pulsado el", "boton 12");
               isKey = false;
               break;
             case 'n':
               Serial.println("13");
+              updateLCD("Haz pulsado el", "boton 13");
               isKey = false;
               break;
             case 'o':
               Serial.println("14");
+              updateLCD("Haz pulsado el", "boton 14");
               isKey = false;
               break;
             case 'p':
               Serial.println("15");
+              updateLCD("Haz pulsado el", "boton 15");
               isKey = false;
               break;
              default:
@@ -159,20 +177,28 @@ void loop() {
 //      returnSensor("SWITCH");
 //      Si la entrada esta en alto return 1 sino pos nmo no
       delay(5000);
-      if (digitalRead(46) == HIGH)
-        Serial.println("1");
-       else
-         Serial.println("0");
+      if (digitalRead(46) == HIGH) {
+        updateLCD("Haz activado el", "switch");
+        Serial.println("1"); 
+      }
+       else {
+          updateLCD("No activaste el", "switch");
+          Serial.println("0");
+       }
+         
   }
   else if(input=="4"){
         // Fotoresistencia return in a certain range
 //      returnSensor("LIGHT");
       delay(5000);
       int light = analogRead(0);
-      if (light > 200)
+      if (light > 200) {
+        updateLCD("Ha recibido luz", "");
         Serial.println("1");
-      else
+      } else{
+        updateLCD("No se ha detectado", "luz");
         Serial.println("0");
+      }
   }
   else if(input=="5"){
       // Retornar el valor tal cual
@@ -181,7 +207,10 @@ void loop() {
       while(uS==0)
         uS = sonar.ping_cm();
       //Serial.println(uS);
+      String temporal = String(uS) + " cm";
+      updateLCD("La distancia fue ", temporal);
       Serial.println(uS);
+      
   }
   else if(input=="6"){
         // Returns one or 0
@@ -191,13 +220,18 @@ void loop() {
       for (int i = 0; i < 250; i++) {
         if (digitalRead(SOUND)==HIGH) {
           Serial.println("1");
+          updateLCD("Si hubo sonido", "");
           wasSound = true;
           break; 
         }
         delay(20); 
       }
-      if (!wasSound)
+      if (!wasSound) {
         Serial.println("0");
+        updateLCD("No hubo sonido", "");
+      }
+      
+        
   }
   else if(input=="7"){
 //      returnSensor("RGB");
@@ -221,7 +255,9 @@ void loop() {
       analogWrite(REDPIN,red); // Se enciende color rojo
       analogWrite(GREENPIN,green); // Se enciende color rojo
       analogWrite(BLUEPIN,blue); // Se enciende color rojo
-      
+
+      String temporalColor = "RGB(" + String(red) + "," + String(green) + "," + String(blue) + ")";
+      updateLCD("Codigo RGB:", "temporalColor");
       Serial.println("0");
       rgbString=="";
       rgb[0] = "";
@@ -229,8 +265,13 @@ void loop() {
       rgb[2] = "";
   }
   input = "";
+}
+
+void updateLCD(String part1, String part2) {
+  lcd.setCursor(0,0);
+  lcd.print(part1);
   lcd.setCursor(0,1);
-  lcd.print(millis() / 1000);
+  lcd.print(part2);
 }
 
 //void returnSensor(String sensor){
