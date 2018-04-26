@@ -1,5 +1,6 @@
 #include <Keypad.h>
 #include <NewPing.h>
+#include <LiquidCrystal.h>
 
 // Ultrasonido
 #define TRIGGER_PIN 9
@@ -7,10 +8,19 @@
 #define MAX_DISTANCE 400
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
 
+// The display
+const int rs = 23, en = 25, d4 = 27, d5 = 29, d6 = 31, d7 = 33;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+String data;
+
 String input;
 String rgb[3];
 const int BLEFT = 2;
 const int BRIGHT = 3;
+const int SOUND = 52;
+const int REDPIN = 5;
+const int GREENPIN = 6;
+const int BLUEPIN = 7;
 
 const byte ROWS = 4; // Four rows
 const byte COLS = 4; // Three columns
@@ -22,9 +32,9 @@ char keys[ROWS][COLS] = {
   {'m','n','o','p'}
 };
 // Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
-byte rowPins[ROWS] = { 9, 8, 7, 6 };
+byte rowPins[ROWS] = { 36, 34, 32, 30 };
 // Connect keypad COL0, COL1 and COL2 to these Arduino pins.
-byte colPins[COLS] = {13, 12, 11, 10 }; 
+byte colPins[COLS] = { 28, 26, 24, 22 }; 
 
 // Create the Keypad
 Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
@@ -33,6 +43,13 @@ void setup() {
   Serial.begin(9600);
   pinMode(BLEFT, INPUT);
   pinMode(BRIGHT, INPUT);
+  pinMode(SOUND, INPUT);
+  pinMode(REDPIN, OUTPUT);
+  pinMode(GREENPIN, OUTPUT);
+  pinMode(BLUEPIN, OUTPUT);
+  lcd.begin(16, 2);
+  // Print a message to the LCD.
+  lcd.print("Hi, how are you?");
   rgb[0]="";
   rgb[1]="";
   rgb[2]="";
@@ -60,72 +77,102 @@ void loop() {
   }
   else if(input=="2") {
 //    returnSensor("keypad");
-      char key = kpd.getKey();
+      boolean isKey = true;
+      while(isKey) {
+
+        char key = kpd.getKey();
+      
         if(key) {  // Check for a valid key.
           switch (key) {
             case 'a':
               Serial.println("0");
+              isKey = false;
               break;
             case 'b':
               Serial.println("1");
+              isKey = false;
               break;
             case 'c':
               Serial.println("2");
+              isKey = false;
               break;
             case 'd':
               Serial.println("3");
+              isKey = false;
               break;
             case 'e':
               Serial.println("4");
+              isKey = false;
               break;
             case 'f':
               Serial.println("5");
+              isKey = false;
               break;
             case 'g':
               Serial.println("6");
+              isKey = false;
               break;
             case 'h':
               Serial.println("7");
+              isKey = false;
               break;
             case 'i':
               Serial.println("8");
+              isKey = false;
               break;
             case 'j':
               Serial.println("9");
+              isKey = false;
               break;
             case 'k':
               Serial.println("10");
+              isKey = false;
               break;
             case 'l':
               Serial.println("11");
+              isKey = false;
               break;
             case 'm':
               Serial.println("12");
+              isKey = false;
               break;
             case 'n':
               Serial.println("13");
+              isKey = false;
               break;
             case 'o':
               Serial.println("14");
+              isKey = false;
               break;
             case 'p':
               Serial.println("15");
+              isKey = false;
               break;
              default:
               Serial.println(key);
             }
         }
+        
+      }
   }
   else if(input=="3"){
-    Serial.println(input);
 //      returnSensor("SWITCH");
 //      Si la entrada esta en alto return 1 sino pos nmo no
-      Serial.println("0");
+      delay(5000);
+      if (digitalRead(46) == HIGH)
+        Serial.println("1");
+       else
+         Serial.println("0");
   }
   else if(input=="4"){
         // Fotoresistencia return in a certain range
 //      returnSensor("LIGHT");
-      Serial.println("0");
+      delay(5000);
+      int light = analogRead(0);
+      if (light > 200)
+        Serial.println("1");
+      else
+        Serial.println("0");
   }
   else if(input=="5"){
       // Retornar el valor tal cual
@@ -139,7 +186,18 @@ void loop() {
   else if(input=="6"){
         // Returns one or 0
 //      returnSensor("SOUND");
-      Serial.println("1");
+      boolean wasSound = false;
+
+      for (int i = 0; i < 250; i++) {
+        if (digitalRead(SOUND)==HIGH) {
+          Serial.println("1");
+          wasSound = true;
+          break; 
+        }
+        delay(20); 
+      }
+      if (!wasSound)
+        Serial.println("0");
   }
   else if(input=="7"){
 //      returnSensor("RGB");
@@ -159,17 +217,20 @@ void loop() {
       int red = rgb[0].toInt();
       int green = rgb[1].toInt();
       int blue = rgb[2].toInt();
-      // TODO setear los valores analogicos para el led rgb
+
+      analogWrite(REDPIN,red); // Se enciende color rojo
+      analogWrite(GREENPIN,green); // Se enciende color rojo
+      analogWrite(BLUEPIN,blue); // Se enciende color rojo
+      
       Serial.println("0");
       rgbString=="";
       rgb[0] = "";
       rgb[1] = "";
       rgb[2] = "";
   }
-  else if(input!="") {
-//    Serial.println(input);
-  }
   input = "";
+  lcd.setCursor(0,1);
+  lcd.print(millis() / 1000);
 }
 
 //void returnSensor(String sensor){
