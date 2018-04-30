@@ -1,12 +1,9 @@
 package itesm.orgalab.messages;
 
-import arduino.Arduino;
 import itesm.orgalab.connection.PortReader;
-import itesm.orgalab.connection.SerialPortCom;
-import itesm.orgalab.gui.Main;
-import jssc.SerialPort;
 import jssc.SerialPortException;
 
+import javax.swing.*;
 import java.util.HashMap;
 
 /**
@@ -99,12 +96,14 @@ public abstract class Message {
 
     public void run(){
         try {
+            //JOptionPane.showMessageDialog(null,this.getText());
+            JOptionPane.showMessageDialog(null, this.getText());
+
+
             PortReader.serialPort.writeString(this.getText());
             Thread.sleep(1000);
             PortReader.serialPort.writeString(this.getSensor().toString());
-        } catch (SerialPortException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (SerialPortException | InterruptedException e) {
             e.printStackTrace();
         }
     }

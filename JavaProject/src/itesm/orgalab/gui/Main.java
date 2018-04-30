@@ -1,18 +1,9 @@
 package itesm.orgalab.gui;
 
-import arduino.Arduino;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
 import itesm.orgalab.connection.SerialPortCom;
 import itesm.orgalab.messages.*;
-import org.w3c.dom.ranges.Range;
 
-import java.awt.*;
-import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Main {
 
