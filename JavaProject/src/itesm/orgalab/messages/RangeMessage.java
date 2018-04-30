@@ -31,7 +31,7 @@ public class RangeMessage extends Message {
     @Override
     public int nextMessage(double answer) {
         int range = this.max-this.min;
-        answer = this.min + (answer * range / 30.0); // TODO el 30 va a ser la distancia real maxima del sensor
+        answer = this.min + (answer * range / 9.0); // TODO el 30 va a ser la distancia real maxima del sensor
         double spaces = (double) range / this.noRanges;
         for(int i = 0; i < this.noRanges; i++){
             if(answer >= this.min+(spaces*i) && answer < this.min + (spaces*(i+1))){
