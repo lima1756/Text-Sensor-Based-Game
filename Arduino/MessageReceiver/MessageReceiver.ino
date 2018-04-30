@@ -64,6 +64,7 @@ void loop() {
   
   if(input=="1"){
 //    returnSensor("btn2");
+      updateLCD("Botones:", "Presionar btn");
       while (true) {
         if (digitalRead(BLEFT) == HIGH) {
           Serial.println("0");
@@ -79,6 +80,7 @@ void loop() {
   }
   else if(input=="2") {
 //    returnSensor("keypad");
+      updateLCD("Keypad:", "presionar tecla");
       boolean isKey = true;
       while(isKey) {
 
@@ -176,7 +178,12 @@ void loop() {
   else if(input=="3"){
 //      returnSensor("SWITCH");
 //      Si la entrada esta en alto return 1 sino pos nmo no
-      delay(5000);
+      for(int i = 0; i < 5; i++)
+      {
+        updateLCD("Switch: Te quedan", String(5-i)+" segundos");
+        delay(1000);  
+      }
+      
       if (digitalRead(46) == HIGH) {
         updateLCD("Haz activado el", "switch");
         Serial.println("1"); 
@@ -190,7 +197,11 @@ void loop() {
   else if(input=="4"){
         // Fotoresistencia return in a certain range
 //      returnSensor("LIGHT");
-      delay(5000);
+      for(int i = 0; i < 10; i++)
+      {
+        updateLCD("Luz: Te quedan", String(10-i)+" segundos");
+        delay(1000);  
+      }
       int light = analogRead(0);
       if (light > 200) {
         updateLCD("Ha recibido luz", "");
@@ -204,9 +215,14 @@ void loop() {
       // Retornar el valor tal cual
 //    returnSensor("RANGE");
       int uS = 0;
-      while(uS==0)
-        uS = sonar.ping_cm();
-      //Serial.println(uS);
+      for(int i = 0; i < 10; i++)
+      {
+        uS = 0;
+        while(uS==0)
+          uS = sonar.ping_cm();
+        updateLCD("Range: Te quedan", String(10-i)+" segundos/"+String(uS) + " cm");
+        delay(1000);  
+      }
       String temporal = String(uS) + " cm";
       updateLCD("La distancia fue ", temporal);
       Serial.println(uS);
@@ -218,6 +234,9 @@ void loop() {
       boolean wasSound = false;
 
       for (int i = 0; i < 250; i++) {
+        if(i%49==0){
+          updateLCD("Sonido: Te quedan", String(5-i%49)+" segundos");
+        }
         if (digitalRead(SOUND)==HIGH) {
           Serial.println("1");
           updateLCD("Si hubo sonido", "");
@@ -257,7 +276,7 @@ void loop() {
       analogWrite(BLUEPIN,blue); // Se enciende color rojo
 
       String temporalColor = "RGB(" + String(red) + "," + String(green) + "," + String(blue) + ")";
-      updateLCD("Codigo RGB:", "temporalColor");
+      updateLCD("Codigo RGB:", temporalColor);
       Serial.println("0");
       rgbString=="";
       rgb[0] = "";
@@ -268,6 +287,7 @@ void loop() {
 }
 
 void updateLCD(String part1, String part2) {
+  lcd.clear();
   lcd.setCursor(0,0);
   lcd.print(part1);
   lcd.setCursor(0,1);
