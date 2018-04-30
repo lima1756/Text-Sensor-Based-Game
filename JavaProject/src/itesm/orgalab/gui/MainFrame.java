@@ -23,7 +23,7 @@ public class MainFrame extends JFrame{
 
         setLayout(new BorderLayout());
 
-        menuBar=new MenuBar(this::updateComboBox, new PanelDisableable() {
+        menuBar=new MenuBar(this, this::updateComboBox, new PanelDisableable() {
             @Override
             public void disablePanel(boolean disable) {
                 MainFrame.this.disablePanel(disable);

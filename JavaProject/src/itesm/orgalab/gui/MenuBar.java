@@ -3,6 +3,7 @@ package itesm.orgalab.gui;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import itesm.orgalab.connection.SerialPortCom;
 import itesm.orgalab.messages.Message;
 import itesm.orgalab.messages.OptionMessage;
 import itesm.orgalab.messages.RGBMessage;
@@ -25,16 +26,21 @@ public class MenuBar extends JMenuBar implements ActionListener{
     private final JFileChooser fileChooser;
     private ComboBoxUpdatable comboBoxUpdate;
     private PanelDisableable panelDisableable;
-    public MenuBar(ComboBoxUpdatable comboBoxUpdate, PanelDisableable panelDisableable){
+    private MainFrame mf;
+    private Thread game;
+    public MenuBar(MainFrame mf, ComboBoxUpdatable comboBoxUpdate, PanelDisableable panelDisableable){
         fileChooser = new JFileChooser();
         FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("json files (*.json)", "json");
         fileChooser.addChoosableFileFilter(jsonFilter);
 
-        fileItems = new JMenuItem[4];
+        this.mf = mf;
+
+        fileItems = new JMenuItem[5];
         fileItems[0] = new JMenuItem("New Game");
         fileItems[1] = new JMenuItem("Save Game");
         fileItems[2] = new JMenuItem("Load Game");
         fileItems[3] = new JMenuItem("Play Game");
+        fileItems[4] = new JMenuItem("Stop Game");
 
         messageItems = new JMenuItem[3];
         messageItems[0] = new JMenuItem("New Range Message");
@@ -60,6 +66,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
 
         this.comboBoxUpdate = comboBoxUpdate;
         this.panelDisableable = panelDisableable;
+        createGame();
     }
 
     private static int saveJSON(String path, HashMap<Integer, Message> map){
@@ -236,8 +243,37 @@ public class MenuBar extends JMenuBar implements ActionListener{
             comboBoxUpdate.updateComboBox();
         }
         else if(source == fileItems[3]){
+            this.game.start();
             Message msg = Main.map.get(1);
             msg.run();
         }
+        else if(source == fileItems[4]){
+            this.game.interrupt();
+            this.game.stop();
+        }
+    }
+
+    private void createGame(){
+        this.game = new Thread(){
+            public void run(){
+                try {
+                    SerialPortCom serialPortCom = new SerialPortCom();
+                    serialPortCom.initialize("COM6");
+
+                    Thread.sleep(2000);
+
+                    while(mf.isVisible()){
+                        Thread.sleep(100);
+                    }
+
+                    serialPortCom.closeConnection();
+                    System.out.println("Serial communication has finished");
+
+                }
+                catch(Exception ex){
+                    System.out.println(ex);
+                }
+            }
+        };
     }
 }
